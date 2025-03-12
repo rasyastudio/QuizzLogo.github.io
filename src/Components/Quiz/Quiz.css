@@ -1,0 +1,548 @@
+/* Quiz.css */
+:root {
+  --primary: #6c5ce7;
+  --secondary: #a8a5e6;
+  --background: #1a1a2e;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --success: #00b894;
+  --error: #ff7675;
+  --info: #0984e3;
+}
+
+/* Reset default margin dan padding browser */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--background); /* Pastikan background penuh */
+}
+
+/* Pastikan quiz-app memenuhi seluruh layar */
+.quiz-app {
+  width: 100vw; /* Ganti dari 100% ke 100vw */
+  min-height: 100vh;
+  padding: 2rem;
+  background: var(--background);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  margin: 0; /* Hapus margin default */
+  box-sizing: border-box; /* Pastikan padding tidak menambah ukuran */
+}
+
+.welcome-screen {
+  width: 100%; /* Pastikan full width */
+  min-height: 100vh; /* Pastikan full height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0; /* Hapus padding yang mungkin menyebabkan white space */
+  margin: 0;
+}
+
+.welcome-content {
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  animation: popIn 0.5s ease;
+  width: 90%; /* Berikan sedikit margin alami */
+  max-width: 800px;
+}
+
+.welcome-title {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.welcome-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.welcome-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(108, 92, 231, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  border: 1px solid rgba(108, 92, 231, 0.3);
+}
+
+.stat-emoji {
+  font-size: 1.2rem;
+}
+
+.start-button {
+  background: var(--primary);
+  color: var(--text);
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-button:hover {
+  background: var(--secondary);
+  transform: scale(1.05);
+}
+
+.home-button {
+  background: none;
+  border: 1px solid var(--info);
+  color: var(--info);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.home-button:hover {
+  background: rgba(9, 132, 227, 0.1);
+  transform: translateY(-3px);
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.category-select-screen {
+  width: 100%; /* Pastikan full width */
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 3rem;
+  animation: slideDown 0.5s ease;
+}
+
+.header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.category-cards {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.category-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+  transform: rotate(45deg);
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.card-content p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.category-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--error);
+}
+
+.category-card.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.difficulty-select-screen {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.difficulty-cards {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.difficulty-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.difficulty-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.difficulty-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+  transform: rotate(45deg);
+}
+
+.difficulty-card.easy { border-color: #00b894; }
+.difficulty-card.medium { border-color: #fdcb6e; }
+.difficulty-card.hard { border-color: #ff7675; }
+
+.card-details p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-details p::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.game-screen {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.score-display {
+  font-size: 1.2rem;
+  background: var(--card-bg);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  backdrop-filter: blur(5px);
+}
+
+.score-display span {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.main-game-area {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo-card {
+  position: relative;
+  margin-bottom: 2rem;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.game-logo {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background: #000;
+}
+
+.logo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 1rem;
+  text-align: right;
+  color: white;
+}
+
+.clue-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.clue-letters {
+  font-size: 2.5rem;
+  letter-spacing: 10px;
+  font-family: monospace;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.hint-button {
+  background: none;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hint-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.5);
+}
+
+.hint-button:hover:not(:disabled) {
+  background: rgba(108, 92, 231, 0.1);
+}
+
+.answer-container {
+  margin-top: 2rem;
+}
+
+.answer-input {
+  width: 95%;
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid var(--primary);
+  border-radius: 15px;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.answer-input::placeholder {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.answer-input:focus {
+  outline: none;
+  box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+}
+
+.action-buttons {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.action-button {
+  padding: 1.2rem;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.check-button {
+  background: var(--success);
+  color: white;
+}
+
+.skip-button {
+  background: var(--error);
+  color: white;
+}
+
+.action-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.action-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.feedback {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 15px;
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+
+.feedback.success {
+  background: rgba(0, 184, 148, 0.2);
+  border: 1px solid var(--success);
+}
+
+.feedback.error {
+  background: rgba(255, 118, 117, 0.2);
+  border: 1px solid var(--error);
+}
+
+.score-screen {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+}
+
+.score-screen .score-display {
+  font-size: 2.5em;
+  color: var(--success);
+  margin: 20px 0;
+}
+
+.score-screen .action-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .quiz-app {
+    padding: 1rem;
+  }
+  
+  .welcome-content {
+    padding: 2rem;
+  }
+
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .welcome-text {
+    font-size: 1rem;
+  }
+
+  .welcome-stats {
+    flex-direction: column;
+  }
+
+  .start-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-logo {
+    height: 200px;
+  }
+  
+  .clue-letters {
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+  }
+  
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .answer-input::placeholder {
+    font-size: 0.8rem;
+  }
+}
