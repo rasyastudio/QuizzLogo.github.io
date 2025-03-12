@@ -28,7 +28,7 @@ const gameLogo = [
   { id: 26, name: "Resident Evil 4", image: "https://jagatplay.com/wp-content/uploads/2021/06/resident-evil-4.jpg", category: "Action/Adventure" },
   { id: 27, name: "God of War", image: "https://deadline.com/wp-content/uploads/2022/12/God-of-War.jpg?w=1000", category: "Action/Adventure" },
   { id: 28, name: "Horizon Zero Dawn", image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2561580/ss_cf69250b6b7144244fe5ec715a82e9cf52398715.1920x1080.jpg?t=1738876500", category: "RPG" },
-  { id: 29, name: "Spider-Man", image: "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/96/2025/02/24/Marvels-Spider-Man-X-SpiderMan_Newz-2456251827.jpg", category: "Open World" },
+  { id: 29, name: "Spider Man", image: "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/96/2025/02/24/Marvels-Spider-Man-X-SpiderMan_Newz-2456251827.jpg", category: "Open World" },
   { id: 30, name: "Assassin's Creed Valhalla", image: "https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/01lCIVJSjkjeeg5BYDawQi/ca2096a8eea91a495ebda8136e963487/ACV_KeyArt11__960x540.png", category: "RPG" },
 ];
 
