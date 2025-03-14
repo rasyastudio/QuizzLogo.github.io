@@ -14,7 +14,8 @@ const CATEGORIES = ['All', 'FPS', 'RPG', 'Puzzle', 'Open World', 'MOBA', 'Strate
 const Quiz = () => {
   const [gameState, setGameState] = useState('welcome');
   const [currentGame, setCurrentGame] = useState(0);
-  const [score, setScore] = useState(0);
+  const [score,
+ setScore] = useState(0);
   const [answer, setAnswer] = useState('');
   const [feedback, setFeedback] = useState({ message: '', type: '' });
   const [games, setGames] = useState([]);
