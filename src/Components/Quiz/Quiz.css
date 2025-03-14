@@ -1,4 +1,3 @@
-/* Quiz.css */
 :root {
   --primary: #6c5ce7;
   --secondary: #a8a5e6;
@@ -8,38 +7,45 @@
   --success: #00b894;
   --error: #ff7675;
   --info: #0984e3;
+  --light-background: #f0f2f5;
+  --light-card-bg: rgba(0, 0, 0, 0.05);
+  --light-text: #333333;
 }
 
-/* Reset default margin dan padding browser */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  background: var(--background); /* Pastikan background penuh */
 }
 
-/* Pastikan quiz-app memenuhi seluruh layar */
 .quiz-app {
-  width: 100vw; /* Ganti dari 100% ke 100vw */
+  width: 100vw;
   min-height: 100vh;
   padding: 2rem;
   background: var(--background);
   color: var(--text);
   font-family: 'Poppins', sans-serif;
-  margin: 0; /* Hapus margin default */
-  box-sizing: border-box; /* Pastikan padding tidak menambah ukuran */
+  margin: 0;
+  box-sizing: border-box;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.quiz-app.light {
+  background: var(--light-background);
+  color: var(--light-text);
 }
 
 .welcome-screen {
-  width: 100%; /* Pastikan full width */
-  min-height: 100vh; /* Pastikan full height */
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 0; /* Hapus padding yang mungkin menyebabkan white space */
-  margin: 0;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.quiz-app.light .welcome-screen {
+  background: var(--light-background);
 }
 
 .welcome-content {
@@ -49,8 +55,14 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   animation: popIn 0.5s ease;
-  width: 90%; /* Berikan sedikit margin alami */
+  width: 90%;
   max-width: 800px;
+  text-align: center;
+}
+
+.quiz-app.light .welcome-content {
+  background: var(--light-card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .welcome-title {
@@ -86,6 +98,11 @@ html, body {
   border: 1px solid rgba(108, 92, 231, 0.3);
 }
 
+.quiz-app.light .stat-item {
+  background: rgba(108, 92, 231, 0.05);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
 .stat-emoji {
   font-size: 1.2rem;
 }
@@ -99,6 +116,12 @@ html, body {
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: block;
+  margin: 0 auto;
+}
+
+.quiz-app.light .start-button {
+  color: #ffffff;
 }
 
 .start-button:hover {
@@ -118,7 +141,7 @@ html, body {
 
 .home-button:hover {
   background: rgba(9, 132, 227, 0.1);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .navigation-buttons {
@@ -129,14 +152,18 @@ html, body {
 }
 
 .category-select-screen {
-  width: 100%; /* Pastikan full width */
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .header {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   animation: slideDown 0.5s ease;
 }
 
@@ -164,6 +191,11 @@ html, body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+.quiz-app.light .category-card {
+  background: var(--light-card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .category-card:hover {
@@ -231,6 +263,11 @@ html, body {
   overflow: hidden;
 }
 
+.quiz-app.light .difficulty-card {
+  background: var(--light-card-bg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .difficulty-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -293,8 +330,17 @@ html, body {
   transition: all 0.3s ease;
 }
 
+.quiz-app.light .back-button {
+  border: 1px solid rgba(0,0,0,0.2);
+  color: var(--light-text);
+}
+
 .back-button:hover {
   background: rgba(255,255,255,0.1);
+}
+
+.quiz-app.light .back-button:hover {
+  background: rgba(0,0,0,0.1);
 }
 
 .score-display {
@@ -303,6 +349,10 @@ html, body {
   padding: 0.8rem 2rem;
   border-radius: 50px;
   backdrop-filter: blur(5px);
+}
+
+.quiz-app.light .score-display {
+  background: var(--light-card-bg);
 }
 
 .score-display span {
@@ -318,6 +368,11 @@ html, body {
   border: 1px solid rgba(255,255,255,0.1);
 }
 
+.quiz-app.light .main-game-area {
+  background: var(--light-card-bg);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
 .logo-card {
   position: relative;
   margin-bottom: 2rem;
@@ -331,6 +386,10 @@ html, body {
   height: 300px;
   object-fit: contain;
   background: #000;
+}
+
+.quiz-app.light .game-logo {
+  background: #ffffff;
 }
 
 .logo-overlay {
@@ -357,6 +416,16 @@ html, body {
   text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
+.quiz-app.light .clue-letters {
+  text-shadow: none;
+}
+
+.clue-text {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
 .hint-button {
   background: none;
   border: 1px solid var(--primary);
@@ -365,6 +434,7 @@ html, body {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 1rem;
 }
 
 .hint-button:disabled {
@@ -374,8 +444,17 @@ html, body {
   color: rgba(255,255,255,0.5);
 }
 
+.quiz-app.light .hint-button:disabled {
+  border-color: rgba(0,0,0,0.2);
+  color: rgba(0,0,0,0.5);
+}
+
 .hint-button:hover:not(:disabled) {
   background: rgba(108, 92, 231, 0.1);
+}
+
+.quiz-app.light .hint-button:hover:not(:disabled) {
+  background: rgba(108, 92, 231, 0.2);
 }
 
 .answer-container {
@@ -395,11 +474,20 @@ html, body {
   transition: all 0.3s ease;
 }
 
+.quiz-app.light .answer-input {
+  background: rgba(255,255,255,0.8);
+  color: var(--light-text);
+}
+
 .answer-input::placeholder {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
   letter-spacing: 1px;
   opacity: 0.8;
+}
+
+.quiz-app.light .answer-input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .answer-input:focus {
@@ -544,5 +632,9 @@ html, body {
   
   .answer-input::placeholder {
     font-size: 0.8rem;
+  }
+
+  .clue-text {
+    font-size: 1rem;
   }
 }
