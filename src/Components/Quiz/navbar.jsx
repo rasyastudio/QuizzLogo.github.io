@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
-import './Navbar.css';
+import React, { useState, useEffect, useRef } from 'react';
+import './navbar.css';
 
 const Navbar = ({ toggleTheme, isDarkMode, toggleLanguage, language }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
   const handleDropdownOption = (option) => {
-    console.log(`Selected option: ${option}`); // Ganti dengan logika sesuai kebutuhan
+    console.log(`Selected option: ${option}`);
     setIsDropdownOpen(false);
+    // Add your specific logic here based on the option
+    switch (option) {
+      case 'About':
+        // Add about page navigation
+        break;
+      case 'Settings':
+        // Add settings logic
+        break;
+      case 'Help':
+        // Add help logic
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -18,6 +45,7 @@ const Navbar = ({ toggleTheme, isDarkMode, toggleLanguage, language }) => {
       <div className="navbar-container">
         <h1 className="navbar-title">Guess The Game</h1>
         <div className="navbar-links">
+          {/* Semua button di dalam sini akan berada di sebelah kanan */}
           <button 
             className="nav-button home-button"
             onClick={() => window.location.reload()}
@@ -36,7 +64,7 @@ const Navbar = ({ toggleTheme, isDarkMode, toggleLanguage, language }) => {
           >
             🌐 {language === 'en' ? 'ID' : 'EN'}
           </button>
-          <div className="navbar-dropdown">
+          <div className="navbar-dropdown" ref={dropdownRef}>
             <button 
               className="nav-button dropdown-toggle"
               onClick={handleDropdownToggle}

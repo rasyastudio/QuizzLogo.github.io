@@ -12,23 +12,30 @@
   --light-text: #333333;
 }
 
+/* Reset and global styles */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow-x: hidden; /* Hilangkan scrollbar horizontal */
+  overflow-y: auto; /* Biarkan scroll vertikal jika konten panjang */
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 .quiz-app {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 0;
   background: var(--background);
   color: var(--text);
   font-family: 'Poppins', sans-serif;
-  margin: 0;
-  box-sizing: border-box;
   transition: background 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
 }
 
 .quiz-app.light {
@@ -36,12 +43,15 @@ html, body {
   color: var(--light-text);
 }
 
+/* Welcome Screen */
 .welcome-screen {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
+  width: 100%;
   background: var(--background);
+  padding-top: 4rem; /* Geser kotak sedikit ke atas */
 }
 
 .quiz-app.light .welcome-screen {
@@ -151,20 +161,11 @@ html, body {
   justify-content: center;
 }
 
-.category-select-screen {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-}
-
+/* Header styling untuk semua layar */
 .header {
   margin-bottom: 2rem;
   animation: slideDown 0.5s ease;
+  text-align: center;
 }
 
 .header h1 {
@@ -175,10 +176,35 @@ html, body {
   -webkit-text-fill-color: transparent;
 }
 
+.header p {
+  font-size: 1.5rem; /* Styling untuk "Select a category" dan "Select difficulty" */
+  opacity: 0.9;
+  margin: 0;
+  color: var(--text);
+}
+
+.quiz-app.light .header p {
+  color: var(--light-text);
+}
+
+/* Category Select Screen */
+.category-select-screen {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .category-cards {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 100%;
 }
 
 .category-card {
@@ -238,17 +264,24 @@ html, body {
   box-shadow: none;
 }
 
+/* Difficulty Select Screen */
 .difficulty-select-screen {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem 1rem;
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .difficulty-cards {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 100%;
 }
 
 .difficulty-card {
@@ -270,7 +303,7 @@ html, body {
 
 .difficulty-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .difficulty-card::before {
@@ -280,7 +313,7 @@ html, body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
   transform: rotate(45deg);
 }
 
@@ -307,10 +340,12 @@ html, body {
   margin-right: 5px;
 }
 
+/* Game Screen */
 .game-screen {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 .game-header {
@@ -322,7 +357,7 @@ html, body {
 
 .back-button {
   background: none;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: var(--text);
   padding: 0.8rem 1.5rem;
   border-radius: 50px;
@@ -331,16 +366,16 @@ html, body {
 }
 
 .quiz-app.light .back-button {
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   color: var(--light-text);
 }
 
 .back-button:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .quiz-app.light .back-button:hover {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .score-display {
@@ -365,12 +400,13 @@ html, body {
   border-radius: 20px;
   padding: 2rem;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
 }
 
 .quiz-app.light .main-game-area {
   background: var(--light-card-bg);
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .logo-card {
@@ -378,7 +414,7 @@ html, body {
   margin-bottom: 2rem;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .game-logo {
@@ -397,7 +433,7 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
   padding: 1rem;
   text-align: right;
   color: white;
@@ -413,7 +449,7 @@ html, body {
   letter-spacing: 10px;
   font-family: monospace;
   margin-bottom: 1rem;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .quiz-app.light .clue-letters {
@@ -440,13 +476,13 @@ html, body {
 .hint-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  border-color: rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .quiz-app.light .hint-button:disabled {
-  border-color: rgba(0,0,0,0.2);
-  color: rgba(0,0,0,0.5);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .hint-button:hover:not(:disabled) {
@@ -465,7 +501,7 @@ html, body {
   width: 95%;
   padding: 1.2rem;
   font-size: 1.2rem;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border: 2px solid var(--primary);
   border-radius: 15px;
   color: var(--text);
@@ -475,7 +511,7 @@ html, body {
 }
 
 .quiz-app.light .answer-input {
-  background: rgba(255,255,255,0.8);
+  background: rgba(255, 255, 255, 0.8);
   color: var(--light-text);
 }
 
@@ -522,7 +558,7 @@ html, body {
 
 .action-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .action-button:disabled {
@@ -550,10 +586,17 @@ html, body {
   border: 1px solid var(--error);
 }
 
+/* Score Screen */
 .score-screen {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
   text-align: center;
-  padding: 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .score-screen .score-display {
@@ -570,6 +613,7 @@ html, body {
   flex-wrap: wrap;
 }
 
+/* Animasi */
 @keyframes slideDown {
   from {
     transform: translateY(-50px);
@@ -586,16 +630,26 @@ html, body {
   100% { transform: scale(1); opacity: 1; }
 }
 
+/* Media Queries */
 @media (max-width: 768px) {
   .quiz-app {
-    padding: 1rem;
+    padding: 0;
   }
   
-  .welcome-content {
-    padding: 2rem;
+  .welcome-screen {
+    padding-top: 2rem;
   }
 
-  .welcome-title {
+  .welcome-content,
+  .category-select-screen,
+  .difficulty-select-screen,
+  .game-screen,
+  .score-screen {
+    padding: 1rem;
+  }
+
+  .welcome-title,
+  .header h1 {
     font-size: 2rem;
   }
 
@@ -612,9 +666,18 @@ html, body {
     font-size: 1rem;
   }
 
+  .header p {
+    font-size: 1.2rem;
+  }
+
   .navigation-buttons {
     flex-direction: column;
     align-items: center;
+  }
+
+  .category-cards,
+  .difficulty-cards {
+    grid-template-columns: 1fr;
   }
 
   .game-logo {
