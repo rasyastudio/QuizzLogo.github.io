@@ -40,12 +40,12 @@
   background: none;
   border: 1px solid #6c5ce7;
   color: #6c5ce7;
-  padding: 0.5rem 1.5rem; /* Pastikan padding sama */
+  padding: 0.5rem 1.5rem;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
-  min-width: 100px; /* Tambahkan ini untuk konsistensi lebar */
+  min-width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,88 +88,46 @@
   color: #0984e3;
 }
 
-.navbar-dropdown {
-  position: relative;
-}
-
-.nav-button.dropdown-toggle {
-  border: 1px solid #00b894; /* Warna hijau untuk membedakan */
-  color: #00b894;
-}
-
-.navbar.light .nav-button.dropdown-toggle {
-  border-color: #00b894;
-  color: #00b894;
-}
-
-.nav-button.dropdown-toggle:hover {
-  background: rgba(0, 184, 148, 0.1);
-  color: #ffffff;
-}
-
-.navbar.light .nav-button.dropdown-toggle:hover {
-  background: rgba(0, 184, 148, 0.2);
-  color: #00b894;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: rgba(26, 26, 46, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  padding: 0.5rem;
-  min-width: 150px;
-  z-index: 1000;
-  animation: slideDown 0.3s ease;
-}
-
-.navbar.light .dropdown-menu {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-item {
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  display: none;
   background: none;
   border: none;
-  color: #00b894;
-  padding: 0.5rem 1rem;
-  text-align: left;
-  width: 100%;
+  font-size: 1.5rem;
+  color: #6c5ce7;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  display: block;
 }
 
-.navbar.light .dropdown-item {
-  color: #00b894;
+.navbar.light .sidebar-toggle {
+  color: #6c5ce7;
 }
 
-.dropdown-item:hover {
-  background: rgba(0, 184, 148, 0.1);
-  color: #ffffff;
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px; /* Hidden by default */
+  width: 250px;
+  height: 100%;
+  background: rgba(26, 26, 46, 0.95);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: right 0.3s ease;
+  z-index: 1001;
 }
 
-.navbar.light .dropdown-item:hover {
-  background: rgba(0, 255, 204, 0.2);
-  color: #00b894;
+.sidebar.light {
+  background: rgba(255, 255, 255, 0.95);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.sidebar.open {
+  right: 0;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem;
@@ -179,17 +137,24 @@
     font-size: 1.5rem;
   }
 
+  .navbar-links.desktop-only {
+    display: none; /* Hide desktop links on mobile */
+  }
+
+  .sidebar-toggle {
+    display: block; /* Show toggle button on mobile */
+  }
+
   .nav-button {
-    padding: 0.4rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: flex-start;
   }
+}
 
-  .dropdown-menu {
-    min-width: 120px;
-  }
-
-  .dropdown-item {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+@media (min-width: 769px) {
+  .sidebar {
+    display: none; /* Hide sidebar on desktop */
   }
 }
