@@ -3,12 +3,12 @@ import Navbar from './navbar';
 import './LandingPage.css';
 
 const QUIZ_IMAGES = {
-  logo: 'https://files.oaiusercontent.com/file-PYnjd8s5oiZmjot5GNnV6q?se=2025-03-15T15%3A22%3A55Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dc2f69c2e-4723-42b3-866d-460b9f98a0b5.webp&sig=aa9zltSpzgfh%2BPahcVVA1aBf4%2Bav0o0brIboRaaSEOw%3D',
-  character: 'https://files.oaiusercontent.com/file-SkitnzseLDVLEMmQ1WNcLJ?se=2025-03-15T15%3A21%3A11Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Db17cbb11-5ec6-466b-953d-447af4dae533.webp&sig=6%2Biv0FjGQRdzB7IYtwJhaY9YOv3J56qavX%2BXswwkpnw%3D',
+  logo: 'https://files.oaiusercontent.com/file-PYnjd8s5oiZmjot5GNnV6q?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dc2f69c2e-4723-42b3-866d-460b9f98a0b5.webp&sig=qmRlDcMmgYefpv7OoyBncQASnAsLD5C7ScBZ9ZSKRRc%3D',
+  character: 'https://files.oaiusercontent.com/file-SkitnzseLDVLEMmQ1WNcLJ?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Db17cbb11-5ec6-466b-953d-447af4dae533.webp&sig=mfpZVa0zL%2BXyPfXCMTtJzp6YMdPrNKhNjVJDRBo/7%2BM%3D',
   soundtrack: 'https://files.oaiusercontent.com/file-BywCKcC32PJ3caKK5izAt3?se=2025-03-15T15%3A23%3A46Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D583a0817-8c8b-4487-8cab-ae6b3bc3dfc4.webp&sig=/Jb0NUB7p5Ff/FRavUPq628JGJbILQb1U7gdv3Ld9b0%3D',
-  year: 'https://files.oaiusercontent.com/file-VVqbxdyk68JAotugNxSDVE?se=2025-03-15T15%3A24%3A50Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D877b95c7-6f00-4f6e-9ba2-b087e2cefac2.webp&sig=j0HBit%2B23KhUTzYp/RUMbUK5M%2BkQ7OOhLq4ktULQh0c%3D',
-  developer: 'https://files.oaiusercontent.com/file-Vg65rGtUcpX6b5ASxrayg8?se=2025-03-15T15%3A25%3A26Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D023936ca-b1cb-4519-bc0e-d697b2c47d96.webp&sig=aqbcZn/ralFI9j/zhIba7AYahLCxnSPv6tFe4TaXXMA%3D',
-  genre: 'https://files.oaiusercontent.com/file-DhP2hUaDbJEhPctF8K5ygD?se=2025-03-15T15%3A26%3A14Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7b0a3c76-581f-4dab-aa2d-e91710081729.webp&sig=rP6DSdksSOTYBXxWmh8wTG7OQyZ9pACOv8/HC1fEYY8%3D'
+  year: 'https://files.oaiusercontent.com/file-VVqbxdyk68JAotugNxSDVE?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D877b95c7-6f00-4f6e-9ba2-b087e2cefac2.webp&sig=ggn02NUjwEiFk2aWVj75QoZ6uy240qQvzNr87ePK5NY%3D',
+  developer: 'https://files.oaiusercontent.com/file-Vg65rGtUcpX6b5ASxrayg8?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D023936ca-b1cb-4519-bc0e-d697b2c47d96.webp&sig=9ST6DoayvHE%2BvX/BdvKTqlmSdFe8plAKbk%2BJTpEVJ%2B4%3D',
+  genre: 'https://files.oaiusercontent.com/file-DhP2hUaDbJEhPctF8K5ygD?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7b0a3c76-581f-4dab-aa2d-e91710081729.webp&sig=FXWMirO8CopIKrNlx7pz6QxucjXsdCaDBrelDcWQcJk%3D'
 };
 
 const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguage, language }) => {
