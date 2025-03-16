@@ -16,60 +16,49 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
     {
       id: 1,
       title: language === 'en' ? 'Logo Quiz' : 'Kuis Logo',
-      desc: language === 'en' 
-        ? 'Identify games from their iconic logos' 
-        : 'Tebak game dari logo ikoniknya',
+      desc: language === 'en' ? 'Identify games from their iconic logos' : 'Tebak game dari logo ikoniknya',
       img: QUIZ_IMAGES.logo
     },
     {
       id: 2,
       title: language === 'en' ? 'Character Challenge' : 'Tantangan Karakter',
-      desc: language === 'en' 
-        ? 'Recognize famous game characters' 
-        : 'Kenali karakter game terkenal',
+      desc: language === 'en' ? 'Recognize famous game characters' : 'Kenali karakter game terkenal',
       img: QUIZ_IMAGES.character
     },
     {
       id: 3,
       title: language === 'en' ? 'Soundtrack Quiz' : 'Kuis Soundtrack',
-      desc: language === 'en' 
-        ? 'Guess the game from its music' 
-        : 'Tebak game dari musiknya',
+      desc: language === 'en' ? 'Guess the game from its music' : 'Tebak game dari musiknya',
       img: QUIZ_IMAGES.soundtrack
     },
     {
       id: 4,
       title: language === 'en' ? 'Release Year' : 'Tahun Rilis',
-      desc: language === 'en' 
-        ? 'Match games to their release years' 
-        : 'Cocokkan game dengan tahun rilisnya',
+      desc: language === 'en' ? 'Match games to their release years' : 'Cocokkan game dengan tahun rilisnya',
       img: QUIZ_IMAGES.year
     },
     {
       id: 5,
       title: language === 'en' ? 'Developer Quiz' : 'Kuis Developer',
-      desc: language === 'en' 
-        ? 'Identify the game studios' 
-        : 'Tebak studio pengembang game',
+      desc: language === 'en' ? 'Identify the game studios' : 'Tebak studio pengembang game',
       img: QUIZ_IMAGES.developer
     },
     {
       id: 6,
       title: language === 'en' ? 'Genre Guesser' : 'Tebak Genre',
-      desc: language === 'en' 
-        ? 'Classify games by their genres' 
-        : 'Klasifikasikan game berdasarkan genrenya',
+      desc: language === 'en' ? 'Classify games by their genres' : 'Klasifikasikan game berdasarkan genrenya',
       img: QUIZ_IMAGES.genre
     }
   ];
 
-  // Referensi ke section game-categories-section
   const categoriesSectionRef = useRef(null);
 
-  // Fungsi untuk scroll ke section categories
   const handleStartExploring = () => {
+    console.log('Start Exploring clicked, ref:', categoriesSectionRef.current);
     if (categoriesSectionRef.current) {
       categoriesSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.error('Categories section not found');
     }
   };
 
