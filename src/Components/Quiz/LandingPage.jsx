@@ -4,11 +4,11 @@ import './LandingPage.css';
 
 const QUIZ_IMAGES = {
   logo: 'https://i.ytimg.com/vi/qYaxJR0wpsY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAS8NJnCPJGAlhqv20ivDe0nztcCA',
-  character: 'https://files.oaiusercontent.com/file-SkitnzseLDVLEMmQ1WNcLJ?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Db17cbb11-5ec6-466b-953d-447af4dae533.webp&sig=mfpZVa0zL%2BXyPfXCMTtJzp6YMdPrNKhNjVJDRBo/7%2BM%3D',
-  soundtrack: 'https://files.oaiusercontent.com/file-BywCKcC32PJ3caKK5izAt3?se=2025-03-15T15%3A23%3A46Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D583a0817-8c8b-4487-8cab-ae6b3bc3dfc4.webp&sig=/Jb0NUB7p5Ff/FRavUPq628JGJbILQb1U7gdv3Ld9b0%3D',
-  year: 'https://files.oaiusercontent.com/file-VVqbxdyk68JAotugNxSDVE?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D877b95c7-6f00-4f6e-9ba2-b087e2cefac2.webp&sig=ggn02NUjwEiFk2aWVj75QoZ6uy240qQvzNr87ePK5NY%3D',
-  developer: 'https://files.oaiusercontent.com/file-Vg65rGtUcpX6b5ASxrayg8?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D023936ca-b1cb-4519-bc0e-d697b2c47d96.webp&sig=9ST6DoayvHE%2BvX/BdvKTqlmSdFe8plAKbk%2BJTpEVJ%2B4%3D',
-  genre: 'https://files.oaiusercontent.com/file-DhP2hUaDbJEhPctF8K5ygD?se=2025-03-16T08%3A51%3A54Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7b0a3c76-581f-4dab-aa2d-e91710081729.webp&sig=FXWMirO8CopIKrNlx7pz6QxucjXsdCaDBrelDcWQcJk%3D'
+  character: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_9smGzmmaESG1HO8n8cFK8zlJh3jDWfC_6Q&s',
+  soundtrack: 'https://cdn.prod.website-files.com/61c070585317d2b435a597a4/676aa9133818034b430fc7c3_Song%20Quiz%20Roku.png',
+  year: 'https://www.denofgeek.com/wp-content/uploads/2022/05/pjimage-24.jpg?fit=1920%2C1080',
+  developer: 'https://quiz.com/image-cache/uploads/598289fd-b895-439f-9c19-21ef0b5c81e5/df51aa7e9582d45e1d8513869a0f7ce4fd2545fb.jpg.jpg?width=1200&height=630',
+  genre: 'https://media.proprofs.com/images/QM/user_images/2503852/New%20Project%20(72)(121).jpg'
 };
 
 const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguage, language }) => {
