@@ -53,8 +53,9 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
 
   const categoriesSectionRef = useRef(null);
 
-  const handleStartExploring = () => {
-    console.log('Start Exploring clicked, ref:', categoriesSectionRef.current);
+  const handleStartExploring = (e) => {
+    e.preventDefault();
+    console.log('Start Exploring clicked/touched');
     if (categoriesSectionRef.current) {
       categoriesSectionRef.current.scrollIntoView({ behavior: 'smooth' });
     } else {
@@ -80,7 +81,11 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
               ? 'Challenge your gaming knowledge with exciting quizzes!'
               : 'Uji pengetahuan gaming Anda dengan kuis yang seru!'}
           </p>
-          <button className="hero-cta" onClick={handleStartExploring}>
+          <button 
+            className="hero-cta" 
+            onClick={handleStartExploring}
+            onTouchStart={handleStartExploring}
+          >
             {language === 'en' ? 'Start Exploring' : 'Mulai Jelajahi'}
           </button>
         </div>
