@@ -1,11 +1,10 @@
-// Quiz.jsx
 import React, { useState } from 'react';
 import Navbar from './navbar';
 import LandingPage from './LandingPage';
 import Intro from './Intro';
-import CharacterChallenge from './CharacterChallenge'; // Ubah ke nama file yang benar
-import gameLogo from './gameLogo'; // Pastikan ini ada dan diekspor dengan benar
-import characterData from './characterData'; // Pastikan ini ada dan diekspor dengan benar
+import CharacterChallenge from './CharacterChallenge';
+import gameLogo from './gameLogo'; // Data untuk Logo Quiz
+import characterData from './characterData'; // Data untuk Character Challenge
 import './Quiz.css';
 
 const DIFFICULTY_CONFIG = {
@@ -19,10 +18,6 @@ const CATEGORIES = ['All', 'FPS', 'RPG', 'Puzzle', 'Open World', 'MOBA', 'Strate
 const QUIZ_ID_TO_CATEGORY = {
   1: 'All',           // Logo Quiz
   2: 'Action/Adventure', // Character Challenge
-  3: 'All',           // Soundtrack Quiz
-  4: 'All',           // Release Year
-  5: 'All',           // Developer Quiz
-  6: 'All',           // Genre Guesser
 };
 
 const Quiz = () => {
@@ -41,13 +36,14 @@ const Quiz = () => {
   const [quizId, setQuizId] = useState(null);
 
   const handleLandingComplete = (selectedQuizId) => {
-    if (selectedQuizId) {
+    if (selectedQuizId && [1, 2].includes(selectedQuizId)) { // Hanya izinkan ID 1 dan 2
       const selectedCategory = QUIZ_ID_TO_CATEGORY[selectedQuizId];
       setCategory(selectedCategory);
       setQuizId(selectedQuizId);
       setGameState('difficulty-select');
     } else {
-      setGameState('intro');
+      setGameState('intro'); // Jika quizId tidak valid, ke intro
+      setFeedback({ message: language === 'en' ? 'Invalid quiz selection!' : 'Pilihan kuis tidak valid!', type: 'error' });
     }
   };
 
@@ -64,8 +60,9 @@ const Quiz = () => {
   };
 
   const startGame = (selectedDifficulty) => {
-    if (!category) {
-      setFeedback({ message: language === 'en' ? 'Please select a category first!' : 'Pilih kategori terlebih dahulu!', type: 'error' });
+    if (!category || !quizId || ![1, 2].includes(quizId)) { // Validasi ketat
+      setFeedback({ message: language === 'en' ? 'Invalid quiz selection!' : 'Pilihan kuis tidak valid!', type: 'error' });
+      setGameState('landing'); // Kembali ke landing jika tidak valid
       return;
     }
 
@@ -73,20 +70,23 @@ const Quiz = () => {
     let filteredGames;
 
     try {
-      if (quizId === 2) {
+      if (quizId === 2) { // Character Challenge
         if (!characterData || !Array.isArray(characterData)) {
           setFeedback({ message: language === 'en' ? 'Character data not available!' : 'Data karakter tidak tersedia!', type: 'error' });
           setGameState('welcome');
           return;
         }
         filteredGames = characterData;
-      } else {
+      } else if (quizId === 1) { // Logo Quiz
         if (!gameLogo || !Array.isArray(gameLogo)) {
           setFeedback({ message: language === 'en' ? 'Game data not available!' : 'Data game tidak tersedia!', type: 'error' });
           setGameState('welcome');
           return;
         }
         filteredGames = category === 'All' ? gameLogo : gameLogo.filter((game) => game.category === category);
+      } else {
+        // Jika quizId bukan 1 atau 2, ini seharusnya tidak pernah terjadi karena validasi sebelumnya
+        throw new Error('Invalid quiz ID');
       }
 
       if (!filteredGames.length) {
@@ -105,8 +105,9 @@ const Quiz = () => {
       setScore(0);
       setQuestionsAnswered(0);
     } catch (error) {
-      console.error('Error in startGame:', error); // Log error untuk debugging
+      console.error('Error in startGame:', error);
       setFeedback({ message: language === 'en' ? 'Something went wrong!' : 'Ada yang salah!', type: 'error' });
+      setGameState('landing');
     }
   };
 
@@ -125,7 +126,7 @@ const Quiz = () => {
   };
 
   const handleCheckAnswer = () => {
-    if (!difficulty || !games[currentGame]) return; // Cegah error jika difficulty atau game belum ada
+    if (!difficulty || !games[currentGame]) return;
     const correctAnswer = games[currentGame].name.toLowerCase();
     const userAnswer = answer.trim().toLowerCase();
     if (userAnswer === correctAnswer) {
@@ -138,7 +139,7 @@ const Quiz = () => {
   };
 
   const nextQuestion = () => {
-    if (!difficulty) return; // Cegah error jika difficulty belum ada
+    if (!difficulty) return;
     const totalQuestions = Math.min(DIFFICULTY_CONFIG[difficulty].questions, games.length);
     const newQuestionsAnswered = questionsAnswered + 1;
 
@@ -154,7 +155,7 @@ const Quiz = () => {
   };
 
   const revealLetter = () => {
-    if (!games[currentGame]) return; // Cegah error jika game belum ada
+    if (!games[currentGame]) return;
     if (score > 0 && revealedLetters < games[currentGame].name.length) {
       setRevealedLetters((prev) => prev + 1);
       setScore((s) => Math.max(0, s - 50));
@@ -200,8 +201,8 @@ const Quiz = () => {
                 <h1 className="welcome-title">{language === 'en' ? 'Welcome to Guess The Game' : 'Selamat Datang di Tebak Game'}</h1>
                 <p className="welcome-text">
                   {language === 'en'
-                    ? 'Put your gaming knowledge to the test! Identify popular game titles from their logos across various categories and difficulty levels.'
-                    : 'Uji pengetahuan gaming Anda! Tebak judul game populer dari logo mereka di berbagai kategori dan tingkat kesulitan.'}
+                    ? 'Put your gaming knowledge to the test! Identify popular game titles from their logos or characters.'
+                    : 'Uji pengetahuan gaming Anda! Tebak judul game populer dari logo atau karakter mereka.'}
                 </p>
                 <div className="welcome-stats">
                   <div className="stat-item">
@@ -210,7 +211,7 @@ const Quiz = () => {
                   </div>
                   <div className="stat-item">
                     <span className="stat-emoji">📊</span>
-                    <span>9 {language === 'en' ? 'Categories' : 'Kategori'}</span>
+                    <span>2 {language === 'en' ? 'Categories' : 'Kategori'}</span>
                   </div>
                   <div className="stat-item">
                     <span className="stat-emoji">⭐</span>
@@ -303,7 +304,7 @@ const Quiz = () => {
                 language={language}
                 games={games}
               />
-            ) : (
+            ) : quizId === 1 ? (
               <div className="game-screen">
                 <div className="game-header">
                   <div className="navigation-buttons">
@@ -364,6 +365,10 @@ const Quiz = () => {
                     <div className={`feedback ${feedback.type}`}>{feedback.message}</div>
                   )}
                 </div>
+              </div>
+            ) : (
+              <div className="error-state">
+                {language === 'en' ? 'Invalid quiz selected! Only Logo Quiz and Character Challenge are available.' : 'Kuis tidak valid dipilih! Hanya Kuis Logo dan Tantangan Karakter yang tersedia.'}
               </div>
             )
           ) : gameState === 'finished' ? (

@@ -1,0 +1,189 @@
+/* src/Components/Quiz/QuizSong.css */
+
+/* Container utama */
+.quiz-song {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e, #16213e); /* Tema gelap */
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+/* Tema terang */
+.quiz-song.light {
+  background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+  color: #333333;
+}
+
+/* Kontainer kuis */
+.quiz-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-song.light .quiz-container {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Judul */
+.quiz-song h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 0 0 1rem;
+  background: linear-gradient(45deg, #6c5ce7, #a8a5e6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Teks instruksi */
+.quiz-song p {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0 0 2rem;
+  opacity: 0.8;
+}
+
+/* Audio player */
+.quiz-song audio {
+  display: block;
+  margin: 0 auto 1.5rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Kontainer tombol opsi */
+.options-container {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Tombol opsi */
+.option-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #6c5ce7;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quiz-song.light .option-button {
+  background: rgba(0, 0, 0, 0.1);
+  color: #333333;
+}
+
+.option-button:hover:not(:disabled) {
+  background: rgba(108, 92, 231, 0.3);
+}
+
+.option-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.option-button.correct {
+  background: #00b894;
+  border-color: #00b894;
+}
+
+.option-button.wrong {
+  background: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+/* Kontainer hasil */
+.result-container {
+  text-align: center;
+}
+
+.result-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.result-container p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Tombol restart dan kembali */
+.restart-button,
+.back-button {
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin: 0.5rem;
+}
+
+.restart-button {
+  background: #6c5ce7;
+  color: white;
+}
+
+.back-button {
+  background: #a8a5e6;
+  color: white;
+}
+
+.restart-button:hover,
+.back-button:hover {
+  transform: scale(1.05);
+}
+
+/* Responsivitas */
+@media (max-width: 768px) {
+  .quiz-container {
+    padding: 1.5rem;
+  }
+
+  .quiz-song h1 {
+    font-size: 2rem;
+  }
+
+  .quiz-song p {
+    font-size: 1rem;
+  }
+
+  .option-button {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .restart-button,
+  .back-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-song h1 {
+    font-size: 1.8rem;
+  }
+
+  .quiz-song p {
+    font-size: 0.9rem;
+  }
+
+  .option-button {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .quiz-song audio {
+    max-width: 250px;
+  }
+}
