@@ -1,0 +1,89 @@
+/* src/Components/Quiz/SoundtrackQuiz.css */
+.soundtrack-quiz {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .score-display {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .progress {
+    font-size: 1.2rem;
+  }
+  
+  .quiz-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .play-audio-button {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .play-audio-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .option-button {
+    background: #a8a5e6;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .option-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .feedback {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+  
+  .feedback.success {
+    color: #28a745;
+  }
+  
+  .feedback.error {
+    color: #dc3545;
+  }
+  
+  @media (max-width: 480px) {
+    .options {
+      grid-template-columns: 1fr;
+    }
+  
+    .play-audio-button, .option-button {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+  }

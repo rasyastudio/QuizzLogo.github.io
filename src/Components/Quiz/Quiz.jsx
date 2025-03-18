@@ -3,8 +3,10 @@ import Navbar from './navbar';
 import LandingPage from './LandingPage';
 import Intro from './Intro';
 import CharacterChallenge from './CharacterChallenge';
-import gameLogo from './gameLogo'; // Data untuk Logo Quiz
-import characterData from './characterData'; // Data untuk Character Challenge
+import SoundtrackQuiz from './SoundtrackQuiz';
+import gameLogo from './gameLogo';
+import characterData from './characterData';
+import { soundtrackData } from './SoundtrackQuiz';
 import './Quiz.css';
 
 const DIFFICULTY_CONFIG = {
@@ -16,8 +18,9 @@ const DIFFICULTY_CONFIG = {
 const CATEGORIES = ['All', 'FPS', 'RPG', 'Puzzle', 'Open World', 'MOBA', 'Strategy', 'Sports', 'Action/Adventure'];
 
 const QUIZ_ID_TO_CATEGORY = {
-  1: 'All',           // Logo Quiz
-  2: 'Action/Adventure', // Character Challenge
+  1: 'All',
+  2: 'Action/Adventure',
+  3: 'All',
 };
 
 const Quiz = () => {
@@ -36,13 +39,15 @@ const Quiz = () => {
   const [quizId, setQuizId] = useState(null);
 
   const handleLandingComplete = (selectedQuizId) => {
-    if (selectedQuizId && [1, 2].includes(selectedQuizId)) { // Hanya izinkan ID 1 dan 2
+    console.log('handleLandingComplete called with quizId:', selectedQuizId);
+    if (selectedQuizId && [1, 2, 3].includes(selectedQuizId)) {
       const selectedCategory = QUIZ_ID_TO_CATEGORY[selectedQuizId];
       setCategory(selectedCategory);
       setQuizId(selectedQuizId);
       setGameState('difficulty-select');
     } else {
-      setGameState('intro'); // Jika quizId tidak valid, ke intro
+      console.error('Invalid quizId:', selectedQuizId);
+      setGameState('intro');
       setFeedback({ message: language === 'en' ? 'Invalid quiz selection!' : 'Pilihan kuis tidak valid!', type: 'error' });
     }
   };
@@ -60,36 +65,41 @@ const Quiz = () => {
   };
 
   const startGame = (selectedDifficulty) => {
-    if (!category || !quizId || ![1, 2].includes(quizId)) { // Validasi ketat
+    console.log('startGame called with quizId:', quizId, 'difficulty:', selectedDifficulty);
+    if (!category || !quizId || ![1, 2, 3].includes(quizId)) {
       setFeedback({ message: language === 'en' ? 'Invalid quiz selection!' : 'Pilihan kuis tidak valid!', type: 'error' });
-      setGameState('landing'); // Kembali ke landing jika tidak valid
+      setGameState('landing');
       return;
     }
 
-    setDifficulty(selectedDifficulty);
+    setDifficulty(DIFFICULTY_CONFIG[selectedDifficulty] || DIFFICULTY_CONFIG.easy); // Default ke easy jika gagal
     let filteredGames;
 
     try {
-      if (quizId === 2) { // Character Challenge
+      if (quizId === 2) {
         if (!characterData || !Array.isArray(characterData)) {
           setFeedback({ message: language === 'en' ? 'Character data not available!' : 'Data karakter tidak tersedia!', type: 'error' });
           setGameState('welcome');
           return;
         }
         filteredGames = characterData;
-      } else if (quizId === 1) { // Logo Quiz
+      } else if (quizId === 1) {
         if (!gameLogo || !Array.isArray(gameLogo)) {
           setFeedback({ message: language === 'en' ? 'Game data not available!' : 'Data game tidak tersedia!', type: 'error' });
           setGameState('welcome');
           return;
         }
         filteredGames = category === 'All' ? gameLogo : gameLogo.filter((game) => game.category === category);
-      } else {
-        // Jika quizId bukan 1 atau 2, ini seharusnya tidak pernah terjadi karena validasi sebelumnya
-        throw new Error('Invalid quiz ID');
+      } else if (quizId === 3) {
+        if (!soundtrackData || !Array.isArray(soundtrackData)) {
+          setFeedback({ message: language === 'en' ? 'Soundtrack data not available!' : 'Data soundtrack tidak tersedia!', type: 'error' });
+          setGameState('welcome');
+          return;
+        }
+        filteredGames = soundtrackData;
       }
 
-      if (!filteredGames.length) {
+      if (!filteredGames || !filteredGames.length) {
         setFeedback({ message: language === 'en' ? 'No games available for this category!' : 'Tidak ada game untuk kategori ini!', type: 'error' });
         setGameState('category-select');
         return;
@@ -97,10 +107,10 @@ const Quiz = () => {
 
       const shuffled = [...filteredGames]
         .sort(() => Math.random() - 0.5)
-        .slice(0, Math.min(DIFFICULTY_CONFIG[selectedDifficulty].questions, filteredGames.length));
+        .slice(0, Math.min((difficulty.questions || 5), filteredGames.length));
       setGames(shuffled);
       setGameState('playing');
-      setRevealedLetters(DIFFICULTY_CONFIG[selectedDifficulty].reveal);
+      setRevealedLetters(difficulty.reveal || 3);
       setCurrentGame(0);
       setScore(0);
       setQuestionsAnswered(0);
@@ -130,7 +140,7 @@ const Quiz = () => {
     const correctAnswer = games[currentGame].name.toLowerCase();
     const userAnswer = answer.trim().toLowerCase();
     if (userAnswer === correctAnswer) {
-      setScore((s) => s + DIFFICULTY_CONFIG[difficulty].points);
+      setScore((s) => s + (difficulty.points || 100));
       setFeedback({ message: language === 'en' ? '🎉 Correct Answer!' : '🎉 Jawaban Benar!', type: 'success' });
       setTimeout(nextQuestion, 1500);
     } else {
@@ -140,7 +150,7 @@ const Quiz = () => {
 
   const nextQuestion = () => {
     if (!difficulty) return;
-    const totalQuestions = Math.min(DIFFICULTY_CONFIG[difficulty].questions, games.length);
+    const totalQuestions = Math.min((difficulty.questions || 5), games.length);
     const newQuestionsAnswered = questionsAnswered + 1;
 
     if (newQuestionsAnswered >= totalQuestions) {
@@ -150,7 +160,7 @@ const Quiz = () => {
       setQuestionsAnswered(newQuestionsAnswered);
       setAnswer('');
       setFeedback({ message: '', type: '' });
-      setRevealedLetters(DIFFICULTY_CONFIG[difficulty].reveal);
+      setRevealedLetters(difficulty.reveal || 3);
     }
   };
 
@@ -178,7 +188,7 @@ const Quiz = () => {
   return (
     <div className={`quiz-app ${isDarkMode ? 'dark' : 'light'}`}>
       {gameState === 'landing' ? (
-        <LandingPage 
+        <LandingPage
           onLandingComplete={handleLandingComplete}
           toggleTheme={toggleTheme}
           isDarkMode={isDarkMode}
@@ -189,11 +199,11 @@ const Quiz = () => {
         <Intro onIntroComplete={handleIntroComplete} />
       ) : (
         <>
-          <Navbar 
-            toggleTheme={toggleTheme} 
-            isDarkMode={isDarkMode} 
-            toggleLanguage={toggleLanguage} 
-            language={language} 
+          <Navbar
+            toggleTheme={toggleTheme}
+            isDarkMode={isDarkMode}
+            toggleLanguage={toggleLanguage}
+            language={language}
           />
           {gameState === 'welcome' ? (
             <div className="welcome-screen">
@@ -201,27 +211,10 @@ const Quiz = () => {
                 <h1 className="welcome-title">{language === 'en' ? 'Welcome to Guess The Game' : 'Selamat Datang di Tebak Game'}</h1>
                 <p className="welcome-text">
                   {language === 'en'
-                    ? 'Put your gaming knowledge to the test! Identify popular game titles from their logos or characters.'
-                    : 'Uji pengetahuan gaming Anda! Tebak judul game populer dari logo atau karakter mereka.'}
+                    ? 'Put your gaming knowledge to the test! Identify popular game titles from their logos, characters, or soundtracks.'
+                    : 'Uji pengetahuan gaming Anda! Tebak judul game populer dari logo, karakter, atau soundtrack mereka.'}
                 </p>
-                <div className="welcome-stats">
-                  <div className="stat-item">
-                    <span className="stat-emoji">🎮</span>
-                    <span>{gameLogo?.length || 0} {language === 'en' ? 'Games' : 'Game'}</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-emoji">📊</span>
-                    <span>2 {language === 'en' ? 'Categories' : 'Kategori'}</span>
-                  </div>
-                  <div className="stat-item">
-                    <span className="stat-emoji">⭐</span>
-                    <span>3 {language === 'en' ? 'Difficulties' : 'Tingkat Kesulitan'}</span>
-                  </div>
-                </div>
-                <button 
-                  className="start-button"
-                  onClick={() => setGameState('category-select')}
-                >
+                <button className="start-button" onClick={() => setGameState('category-select')}>
                   {language === 'en' ? 'Start Quiz' : 'Mulai Kuis'}
                 </button>
               </div>
@@ -231,14 +224,12 @@ const Quiz = () => {
               <div className="header">
                 <h1>{language === 'en' ? 'Guess The Game' : 'Tebak Game'}</h1>
                 <p>{language === 'en' ? 'Select a category to start' : 'Pilih kategori untuk memulai'}</p>
-                {feedback.message && (
-                  <div className={`feedback ${feedback.type}`}>{feedback.message}</div>
-                )}
+                {feedback.message && <div className={`feedback ${feedback.type}`}>{feedback.message}</div>}
               </div>
               <div className="category-cards">
                 {CATEGORIES.map((cat) => {
-                  const availableGames = cat === 'All' 
-                    ? (gameLogo?.length || 0) 
+                  const availableGames = cat === 'All'
+                    ? (gameLogo?.length || 0)
                     : (gameLogo || []).filter((game) => game.category === cat).length;
                   const isDisabled = availableGames === 0;
                   return (
@@ -268,10 +259,7 @@ const Quiz = () => {
                 <h1>{language === 'en' ? `Guess The Game - ${category || 'No Category'}` : `Tebak Game - ${category || 'Tanpa Kategori'}`}</h1>
                 <p>{language === 'en' ? 'Select difficulty to start' : 'Pilih tingkat kesulitan untuk memulai'}</p>
                 <div className="navigation-buttons">
-                  <button
-                    className="back-button"
-                    onClick={() => setGameState('category-select')}
-                  >
+                  <button className="back-button" onClick={() => setGameState('category-select')}>
                     ◀ {language === 'en' ? 'Change Category' : 'Ganti Kategori'}
                   </button>
                 </div>
@@ -297,8 +285,19 @@ const Quiz = () => {
               <CharacterChallenge
                 difficulty={difficulty}
                 onGameEnd={(finalScore, answered) => {
-                  setScore(finalScore);
-                  setQuestionsAnswered(answered);
+                  setScore(finalScore || 0); // Default ke 0 jika undefined
+                  setQuestionsAnswered(answered || 0);
+                  setGameState('finished');
+                }}
+                language={language}
+                games={games}
+              />
+            ) : quizId === 3 ? (
+              <SoundtrackQuiz
+                difficulty={difficulty || DIFFICULTY_CONFIG.easy} // Default ke easy jika null
+                onGameEnd={(finalScore, answered) => {
+                  setScore(finalScore || 0); // Default ke 0 jika undefined
+                  setQuestionsAnswered(answered || 0);
                   setGameState('finished');
                 }}
                 language={language}
@@ -355,20 +354,18 @@ const Quiz = () => {
                       <button
                         className="action-button skip-button"
                         onClick={nextQuestion}
-                        disabled={DIFFICULTY_CONFIG[difficulty]?.skips === 0}
+                        disabled={difficulty?.skips === 0}
                       >
                         ⏭ {language === 'en' ? 'Skip Question' : 'Lewati Pertanyaan'}
                       </button>
                     </div>
                   </div>
-                  {feedback.message && (
-                    <div className={`feedback ${feedback.type}`}>{feedback.message}</div>
-                  )}
+                  {feedback.message && <div className={`feedback ${feedback.type}`}>{feedback.message}</div>}
                 </div>
               </div>
             ) : (
               <div className="error-state">
-                {language === 'en' ? 'Invalid quiz selected! Only Logo Quiz and Character Challenge are available.' : 'Kuis tidak valid dipilih! Hanya Kuis Logo dan Tantangan Karakter yang tersedia.'}
+                {language === 'en' ? 'Invalid quiz selected!' : 'Kuis tidak valid dipilih!'}
               </div>
             )
           ) : gameState === 'finished' ? (
@@ -382,8 +379,8 @@ const Quiz = () => {
               </div>
               <p>
                 {language === 'en'
-                  ? `You answered ${questionsAnswered} questions in ${category} category (${difficulty} mode).`
-                  : `Anda menjawab ${questionsAnswered} pertanyaan di kategori ${category} (mode ${difficulty}).`}
+                  ? `You answered ${questionsAnswered} questions in ${category} category (${difficulty ? difficulty : 'unknown'} mode).`
+                  : `Anda menjawab ${questionsAnswered} pertanyaan di kategori ${category} (mode ${difficulty ? difficulty : 'tidak diketahui'}).`}
               </p>
               <div className="action-buttons">
                 <button className="action-button" onClick={resetGame}>

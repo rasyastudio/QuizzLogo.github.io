@@ -1,15 +1,14 @@
 import React, { useRef } from 'react';
-import Navbar from './navbar'; // Impor Navbar untuk header
-import './LandingPage.css'; // Impor CSS untuk styling
+import Navbar from './navbar';
+import './LandingPage.css';
 
-// Objek gambar untuk kuis
 const QUIZ_IMAGES = {
   logo: 'https://i.ytimg.com/vi/qYaxJR0wpsY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAS8NJnCPJGAlhqv20ivDe0nztcCA',
   character: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_9smGzmmaESG1HO8n8cFK8zlJh3jDWfC_6Q&s',
+  soundtrack: 'https://cdn.prod.website-files.com/61c070585317d2b435a597a4/676aa9133818034b430fc7c3_Song%20Quiz%20Roku.png',
 };
 
 const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguage, language }) => {
-  // Hanya dua kuis yang diizinkan
   const quizTypes = [
     {
       id: 1,
@@ -23,11 +22,16 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
       desc: language === 'en' ? 'Recognize famous game characters' : 'Kenali karakter game terkenal',
       img: QUIZ_IMAGES.character,
     },
+    {
+      id: 3,
+      title: language === 'en' ? 'Soundtrack Quiz' : 'Kuis Soundtrack',
+      desc: language === 'en' ? 'Guess the game from its music' : 'Tebak game dari musiknya',
+      img: QUIZ_IMAGES.soundtrack,
+    },
   ];
 
   const categoriesSectionRef = useRef(null);
 
-  // Fungsi untuk scroll ke section kategori
   const handleStartExploring = (e) => {
     e.preventDefault();
     console.log('Start Exploring clicked/touched');
@@ -40,15 +44,12 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
 
   return (
     <div className={`landing-page ${isDarkMode ? 'dark' : 'light'}`}>
-      {/* Navbar */}
       <Navbar 
         toggleTheme={toggleTheme} 
         isDarkMode={isDarkMode} 
         toggleLanguage={toggleLanguage} 
         language={language} 
       />
-
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
@@ -68,8 +69,6 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
           </button>
         </div>
       </section>
-
-      {/* Game Categories Section */}
       <section className="game-categories-section" ref={categoriesSectionRef}>
         <h2 className="section-title">
           {language === 'en' ? 'Explore Quiz Types' : 'Jelajahi Jenis Kuis'}
@@ -99,18 +98,14 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
           ))}
         </div>
       </section>
-
-      {/* About Section */}
       <section className="about-section">
         <h2 className="section-title">{language === 'en' ? 'About The Game' : 'Tentang Permainan'}</h2>
         <p className="section-text">
           {language === 'en'
-            ? 'Guess The Game is designed for gamers who love a good challenge. Test your skills with iconic game logos and famous characters!'
-            : 'Tebak Game dirancang untuk gamer yang menyukai tantangan. Uji keterampilan Anda dengan logo game ikonik dan karakter terkenal!'}
+            ? 'Guess The Game is designed for gamers who love a good challenge. Test your skills with iconic game logos, famous characters, and memorable soundtracks!'
+            : 'Tebak Game dirancang untuk gamer yang menyukai tantangan. Uji keterampilan Anda dengan logo game ikonik, karakter terkenal, dan soundtrack yang mengesankan!'}
         </p>
       </section>
-
-      {/* CTA Section */}
       <section className="cta-section">
         <h2 className="section-title">{language === 'en' ? 'Ready to Play?' : 'Siap Bermain?'}</h2>
         <p className="section-text">
@@ -120,13 +115,11 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
         </p>
         <button 
           className="cta-button" 
-          onClick={() => onLandingComplete(1)} // Default ke Logo Quiz jika diklik
+          onClick={() => onLandingComplete(1)} // Default ke Logo Quiz
         >
           {language === 'en' ? 'Get Started Now' : 'Mulai Sekarang'}
         </button>
       </section>
-
-      {/* Footer */}
       <footer className="landing-footer">
         <p>© 2025 Guess The Game. All rights reserved.</p>
       </footer>
