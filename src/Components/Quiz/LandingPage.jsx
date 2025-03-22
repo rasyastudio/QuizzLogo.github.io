@@ -6,6 +6,7 @@ const QUIZ_IMAGES = {
   logo: 'https://i.ytimg.com/vi/qYaxJR0wpsY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAS8NJnCPJGAlhqv20ivDe0nztcCA',
   character: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_9smGzmmaESG1HO8n8cFK8zlJh3jDWfC_6Q&s',
   soundtrack: 'https://cdn.prod.website-files.com/61c070585317d2b435a597a4/676aa9133818034b430fc7c3_Song%20Quiz%20Roku.png',
+  cartoon: 'https://img.goodfon.com/wallpaper/big/c/aa/filmy-fon-multik-gadkiy-ya-2.webp', // Gambar contoh untuk Cartoon Quiz
 };
 
 const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguage, language }) => {
@@ -27,6 +28,12 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
       title: language === 'en' ? 'Soundtrack Quiz' : 'Kuis Soundtrack',
       desc: language === 'en' ? 'Guess the game from its music' : 'Tebak game dari musiknya',
       img: QUIZ_IMAGES.soundtrack,
+    },
+    {
+      id: 4, // ID baru untuk Cartoon Quiz
+      title: language === 'en' ? 'Cartoon Quiz' : 'Kuis Kartun',
+      desc: language === 'en' ? 'Guess your favorite cartoons!' : 'Tebak kartun favoritmu!',
+      img: QUIZ_IMAGES.cartoon,
     },
   ];
 
@@ -102,16 +109,16 @@ const LandingPage = ({ onLandingComplete, toggleTheme, isDarkMode, toggleLanguag
         <h2 className="section-title">{language === 'en' ? 'About The Game' : 'Tentang Permainan'}</h2>
         <p className="section-text">
           {language === 'en'
-            ? 'Guess The Game is designed for gamers who love a good challenge. Test your skills with iconic game logos, famous characters, and memorable soundtracks!'
-            : 'Tebak Game dirancang untuk gamer yang menyukai tantangan. Uji keterampilan Anda dengan logo game ikonik, karakter terkenal, dan soundtrack yang mengesankan!'}
+            ? 'Guess The Game is designed for gamers who love a good challenge. Test your skills with iconic game logos, famous characters, memorable soundtracks, and now your favorite cartoons!'
+            : 'Tebak Game dirancang untuk gamer yang menyukai tantangan. Uji keterampilan Anda dengan logo game ikonik, karakter terkenal, soundtrack yang mengesankan, dan sekarang kartun favorit Anda!'}
         </p>
       </section>
       <section className="cta-section">
         <h2 className="section-title">{language === 'en' ? 'Ready to Play?' : 'Siap Bermain?'}</h2>
         <p className="section-text">
           {language === 'en' 
-            ? 'Join thousands of players and see how many games you can guess!' 
-            : 'Bergabunglah dengan ribuan pemain dan lihat berapa banyak game yang bisa Anda tebak!'}
+            ? 'Join thousands of players and see how many games and cartoons you can guess!' 
+            : 'Bergabunglah dengan ribuan pemain dan lihat berapa banyak game dan kartun yang bisa Anda tebak!'}
         </p>
         <button 
           className="cta-button" 
